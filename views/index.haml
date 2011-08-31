@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %link(rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.1.min.css")
+    %script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false")
+    :javascript
+      function initialize() {
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+          zoom: 8,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+      }
+  %body(onload="initialize()")
+    .topbar
+      .fill
+        .container
+          %h3
+            %a(href="/") Locator
+    .container(style="margin-top: 55px;")
+      #map_canvas(style="height: 200px;")
+      %article(style="margin-top: 20px;")
+        %h2 Devices
+        %table
+          %thead
+            %tr
+              %th
+              %th Name
+              %th Coords
+              %th Last Updated
+          %tbody
+            - $db.smembers('locator:devices').each do |set|
+              - set = decode(set)
+              %tr
+                %td X
+                %td= set["name"]
+                %td #{set["lat"]}, #{set["long"]}
+                %td= set["time"]
