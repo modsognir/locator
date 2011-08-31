@@ -3,6 +3,8 @@
   %head
     %link(rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.1.min.css")
     %script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false")
+    %script(type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
+    %script(type="text/javascript" src="jquery.tablesorter.js")
     :javascript
       function initialize() {
         var latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -14,7 +16,13 @@
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
       }
-  %body(onload="initialize()")
+
+      $(document).ready(function() {
+        initialize();
+
+        $("table").tablesorter();
+      });
+  %body
     .topbar
       .fill
         .container
@@ -24,7 +32,7 @@
       #map_canvas(style="height: 200px;")
       %article(style="margin-top: 20px;")
         %h2 Devices
-        %table
+        %table.zebra-striped
           %thead
             %tr
               %th

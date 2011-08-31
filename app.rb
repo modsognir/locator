@@ -30,6 +30,8 @@ end
 class Locator < Sinatra::Base
   include Helpers
 
+  set :public, File.dirname(__FILE__) + '/public'
+
   get '/' do
     @devices = $db.smembers('locator:devices').map {|d| decode(d) }
     haml :index
