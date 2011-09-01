@@ -37,8 +37,12 @@ class Locator < Sinatra::Base
     haml :index
   end
 
+  get '/client' do
+    haml :client
+  end
+
   post '/' do
-    # $db.flushall
+    $db.flushall
     push({
         :name => params[:name],
         :lat  => params[:lat],

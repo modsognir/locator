@@ -46,4 +46,5 @@
                 %td X
                 %td= set["name"]
                 %td #{set["lat"]}, #{set["long"]}
-                %td= set["time"]
+                %td
+                  = set["time"].to_i
